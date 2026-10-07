@@ -1,0 +1,228 @@
+---
+import ReelCard from './ReelCard.astro';
+import { site } from '../config/site';
+import { heroWorks } from '../lib/works';
+import { t, type Lang } from '../i18n/ui';
+
+interface Props {
+  lang: Lang;
+}
+const { lang } = Astro.props;
+const s = t(lang);
+
+// 두 줄로 나눠 서로 반대 방향으로 흐르게 합니다. 끊김 없는 반복을 위해 목록을 두 번 이어 붙입니다.
+const picks = heroWorks(8);
+const colA = picks.filter((_, i) => i % 2 === 0);
+const colB = picks.filter((_, i) => i % 2 === 1);
+const loop = <T,>(arr: T[]) => [...arr, ...arr];
+---
+
+<section class="hero" aria-label={site.name[lang]}>
+  <video class="hero__video" autoplay muted loop playsinline poster="/video/hero-poster.jpg" aria-hidden="true">
+    <source src="/video/hero-720.mp4" type="video/mp4" media="(max-width: 767px)" />
+    <source src="/video/hero-1080.webm" type="video/webm" />
+    <source src="/video/hero-1080.mp4" type="video/mp4" />
+  </video>
+  <div class="hero__shade"></div>
+
+  <div class="hero__text">
+    <p class="hero__role">{s.hero.role}</p>
+    <h1 class="hero__name">
+      <span lang="ko">{site.name.ko}</span>
+      <span lang="en">{site.name.en}</span>
+    </h1>
+    <p class="hero__tagline">{s.hero.tagline}</p>
+  </div>
+
+  <div class="hero__reels" aria-hidden="true">
+    <div class="hero__col hero__col--up">
+      <div class="hero__track">
+        {loop(colA).map((w) => <ReelCard work={w} lang={lang} size="sm" />)}
+      </div>
+    </div>
+    <div class="hero__col hero__col--down">
+      <div class="hero__track">
+        {loop(colB.length ? colB : colA).map((w) => <ReelCard work={w} lang={lang} size="sm" />)}
+      </div>
+    </div>
+  </div>
+
+  <a href="#about" class="hero__scroll">{s.hero.scroll}</a>
+</section>
+
+<style>
+  .hero {
+    position: relative;
+    height: 100svh;
+    min-height: 560px;
+    overflow: hidden;
+    background: var(--black);
+    color: var(--white);
+  }
+  .hero__video {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: 30% 60%;
+    filter: grayscale(1) contrast(1.08) brightness(0.78);
+  }
+  .hero__shade {
+    position: absolute;
+    inset: 0;
+    background:
+      linear-gradient(90deg, rgba(0, 0, 0, 0.55) 0%, rgba(0, 0, 0, 0.1) 45%, rgba(0, 0, 0, 0.45) 75%),
+      linear-gradient(0deg, rgba(0, 0, 0, 0.55) 0%, transparent 35%);
+  }
+
+  .hero__text {
+    position: absolute;
+    left: var(--gutter);
+    top: calc(var(--header-h) + clamp(32px, 8vh, 96px));
+    max-width: 52vw;
+  }
+  .hero__role {
+    font-size: 12px;
+    letter-spacing: 0.28em;
+    text-transform: uppercase;
+    opacity: 0.75;
+    margin: 0 0 20px;
+  }
+  .hero__name {
+    margin: 0;
+    font-family: var(--serif);
+    font-weight: 500;
+    line-height: 0.95;
+  }
+  .hero__name span {
+    display: block;
+  }
+  .hero__name [lang='ko'] {
+    font-family: 'Noto Serif KR', serif;
+    font-size: clamp(22px, 2.6vw, 34px);
+    letter-spacing: 0.3em;
+    margin-bottom: 12px;
+    opacity: 0.85;
+  }
+  .hero__name [lang='en'] {
+    font-size: clamp(56px, 9vw, 140px);
+    letter-spacing: -0.02em;
+  }
+  .hero__tagline {
+    white-space: pre-line;
+    font-size: clamp(15px, 1.3vw, 18px);
+    opacity: 0.8;
+    margin: 28px 0 0;
+  }
+
+  /* 오른쪽 세로 흐름 */
+  .hero__reels {
+    position: absolute;
+    top: var(--header-h);
+    bottom: 0;
+    right: var(--gutter);
+    width: min(30vw, 400px);
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 14px;
+    -webkit-mask-image: linear-gradient(180deg, transparent, #000 14%, #000 86%, transparent);
+    mask-image: linear-gradient(180deg, transparent, #000 14%, #000 86%, transparent);
+  }
+  .hero__col {
+    overflow: hidden;
+  }
+  .hero__track {
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+    padding-bottom: 14px;
+  }
+  .hero__track > :global(*) {
+    flex: none;
+    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.45);
+  }
+  .hero__col--up .hero__track {
+    animation: flow-up 60s linear infinite;
+  }
+  .hero__col--down {
+    margin-top: -40%;
+  }
+  .hero__col--down .hero__track {
+    animation: flow-up 60s linear infinite reverse;
+  }
+  .hero__reels:hover .hero__track {
+    animation-play-state: paused;
+  }
+  @keyframes flow-up {
+    to {
+      transform: translateY(-50%);
+    }
+  }
+
+  .hero__scroll {
+    position: absolute;
+    left: var(--gutter);
+    bottom: 28px;
+    font-size: 11px;
+    letter-spacing: 0.3em;
+    text-transform: uppercase;
+    opacity: 0.7;
+    padding-left: 44px;
+  }
+  .hero__scroll::before {
+    content: '';
+    position: absolute;
+    left: 0;
+    top: 50%;
+    width: 32px;
+    height: 1px;
+    background: currentColor;
+  }
+
+  /* 모바일: 하단 가로 흐름 */
+  @media (max-width: 767px) {
+    .hero__video {
+      object-position: 22% 50%;
+    }
+    .hero__text {
+      max-width: none;
+      right: var(--gutter);
+    }
+    .hero__reels {
+      top: auto;
+      left: 0;
+      right: 0;
+      bottom: 60px;
+      width: auto;
+      height: 25svh;
+      display: block;
+      -webkit-mask-image: linear-gradient(90deg, transparent, #000 10%, #000 90%, transparent);
+      mask-image: linear-gradient(90deg, transparent, #000 10%, #000 90%, transparent);
+    }
+    .hero__col {
+      height: 100%;
+    }
+    .hero__col--down {
+      display: none;
+    }
+    .hero__track {
+      flex-direction: row;
+      height: 100%;
+      width: max-content;
+      gap: 10px;
+      padding: 0 10px 0 0;
+      animation-name: flow-left !important;
+      animation-duration: 45s !important;
+    }
+    .hero__track > :global(*) {
+      height: 100%;
+      width: auto;
+    }
+    @keyframes flow-left {
+      to {
+        transform: translateX(-50%);
+      }
+    }
+  }
+</style>

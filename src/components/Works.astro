@@ -1,0 +1,264 @@
+---
+import ReelCard from './ReelCard.astro';
+import { works, workTitle, workDescription, instagramEmbed, formatCompact, type Category } from '../lib/works';
+import { t, type Lang } from '../i18n/ui';
+
+interface Props {
+  lang: Lang;
+}
+const { lang } = Astro.props;
+const s = t(lang).works;
+
+// 실제 데이터에 있는 형태·카테고리만 필터 버튼으로 노출
+const formats = [...new Set(works.map((w) => w.format))];
+const categories = (['beauty', 'fashion', 'lifestyle'] as Category[]).filter((c) =>
+  works.some((w) => w.categories.includes(c)),
+);
+const filters = ['all', ...(formats.length > 1 ? formats : []), ...categories] as const;
+---
+
+<section class="section works section--dark" id="works">
+  <div class="container">
+    <p class="eyebrow">Works</p>
+    <h2 class="section-title reveal">{s.title}</h2>
+
+    <div class="works__filters" role="group">
+      {
+        filters.map((f, i) => (
+          <button type="button" data-filter={f} aria-pressed={i === 0 ? 'true' : 'false'}>
+            {s.filters[f]}
+          </button>
+        ))
+      }
+    </div>
+
+    <ul class="works__grid">
+      {
+        works.map((w) => (
+          <li class="works__item" data-tags={[w.format, ...w.categories].join(' ')}>
+            <button
+              type="button"
+              class="works__open"
+              data-embed={instagramEmbed(w.url) ?? ''}
+              data-url={w.url ?? ''}
+              data-title={workTitle(w, lang)}
+              data-desc={workDescription(w, lang) ?? ''}
+            >
+              <ReelCard work={w} lang={lang} />
+            </button>
+            <div class="works__caption">
+              <span class="works__title">{workTitle(w, lang)}</span>
+              <span class="works__extra">
+                {w.views ? `${formatCompact(w.views, lang)} views` : ''}
+                {w.secondaryUse && <em>{s.secondaryUse}</em>}
+              </span>
+            </div>
+          </li>
+        ))
+      }
+    </ul>
+  </div>
+
+  <dialog class="works__modal" aria-label={s.title}>
+    <div class="works__modal-body">
+      <div class="works__modal-frame"></div>
+      <div class="works__modal-info">
+        <h3 class="works__modal-title"></h3>
+        <p class="works__modal-desc"></p>
+        <a class="btn works__modal-link" target="_blank" rel="noopener">{s.view} ↗</a>
+        <p class="works__modal-empty">{s.noLink}</p>
+      </div>
+      <button type="button" class="works__modal-close" aria-label={s.close}>✕</button>
+    </div>
+  </dialog>
+</section>
+
+<style>
+  .works__filters {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    margin-bottom: 40px;
+  }
+  .works__filters button {
+    padding: 8px 18px;
+    border: 1px solid var(--gray-3);
+    font-size: 13px;
+    letter-spacing: 0.06em;
+    transition: all 0.2s;
+  }
+  .works__filters button[aria-pressed='true'],
+  .works__filters button:hover {
+    background: var(--white);
+    color: var(--black);
+    border-color: var(--white);
+  }
+
+  .works__grid {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: clamp(12px, 2vw, 28px) clamp(12px, 1.6vw, 20px);
+  }
+  .works__item[hidden] {
+    display: none;
+  }
+  .works__open {
+    display: block;
+    width: 100%;
+    overflow: hidden;
+  }
+  .works__open :global(.reel) {
+    transition: transform 0.5s ease;
+  }
+  .works__open:hover :global(.reel) {
+    transform: scale(1.03);
+  }
+  .works__open:hover :global(.reel__preview) {
+    opacity: 1;
+  }
+  .works__caption {
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+    padding-top: 12px;
+  }
+  .works__title {
+    font-size: 14px;
+  }
+  .works__extra {
+    font-size: 12px;
+    color: var(--gray-2);
+    display: flex;
+    gap: 8px;
+  }
+  .works__extra em {
+    font-style: normal;
+    border: 1px solid var(--gray-3);
+    padding: 0 6px;
+  }
+
+  .works__modal {
+    padding: 0;
+    border: 0;
+    background: transparent;
+    max-width: min(920px, 94vw);
+    width: 100%;
+    color: var(--white);
+  }
+  .works__modal::backdrop {
+    background: rgba(0, 0, 0, 0.85);
+  }
+  .works__modal-body {
+    position: relative;
+    display: grid;
+    grid-template-columns: minmax(0, 400px) 1fr;
+    gap: 32px;
+    align-items: center;
+    background: var(--ink);
+    padding: 24px;
+  }
+  .works__modal-frame {
+    aspect-ratio: 9 / 16;
+    max-height: 80vh;
+    background: var(--black);
+  }
+  .works__modal-frame :global(iframe) {
+    width: 100%;
+    height: 100%;
+    border: 0;
+    background: #fff;
+  }
+  .works__modal-title {
+    font-family: var(--serif);
+    font-weight: 500;
+    font-size: 32px;
+    line-height: 1.2;
+    margin: 0 0 12px;
+  }
+  .works__modal-desc {
+    color: var(--gray-2);
+    margin: 0 0 24px;
+  }
+  .works__modal-empty {
+    color: var(--gray-2);
+  }
+  .works__modal-close {
+    position: absolute;
+    top: 12px;
+    right: 16px;
+    font-size: 18px;
+  }
+
+  @media (max-width: 1023px) {
+    .works__grid {
+      grid-template-columns: repeat(3, 1fr);
+    }
+  }
+  @media (max-width: 767px) {
+    .works__grid {
+      grid-template-columns: repeat(2, 1fr);
+    }
+    .works__modal-body {
+      grid-template-columns: 1fr;
+      padding: 48px 16px 20px;
+    }
+    .works__modal-frame {
+      max-height: 62vh;
+      margin: 0 auto;
+      width: 100%;
+    }
+  }
+</style>
+
+<script>
+  // 필터
+  const buttons = document.querySelectorAll<HTMLButtonElement>('.works__filters button');
+  const items = document.querySelectorAll<HTMLElement>('.works__item');
+  buttons.forEach((btn) =>
+    btn.addEventListener('click', () => {
+      const f = btn.dataset.filter!;
+      buttons.forEach((b) => b.setAttribute('aria-pressed', String(b === btn)));
+      items.forEach((it) => (it.hidden = f !== 'all' && !it.dataset.tags!.split(' ').includes(f)));
+    }),
+  );
+
+  // 마우스를 올리면 미리보기 영상 재생
+  document.querySelectorAll<HTMLElement>('.works__open').forEach((el) => {
+    const v = el.querySelector('video');
+    if (!v) return;
+    el.addEventListener('mouseenter', () => v.play().catch(() => {}));
+    el.addEventListener('mouseleave', () => v.pause());
+  });
+
+  // 클릭하면 팝업에서 인스타그램 임베드
+  const modal = document.querySelector<HTMLDialogElement>('.works__modal')!;
+  const frame = modal.querySelector<HTMLElement>('.works__modal-frame')!;
+  const title = modal.querySelector<HTMLElement>('.works__modal-title')!;
+  const desc = modal.querySelector<HTMLElement>('.works__modal-desc')!;
+  const link = modal.querySelector<HTMLAnchorElement>('.works__modal-link')!;
+  const empty = modal.querySelector<HTMLElement>('.works__modal-empty')!;
+
+  document.querySelectorAll<HTMLButtonElement>('.works__open').forEach((btn) =>
+    btn.addEventListener('click', () => {
+      const { embed, url, title: t, desc: d } = btn.dataset;
+      title.textContent = t ?? '';
+      desc.textContent = d ?? '';
+      desc.hidden = !d;
+      link.hidden = !url;
+      empty.hidden = !!url;
+      if (url) link.href = url;
+      frame.innerHTML = embed
+        ? `<iframe src="${embed}" loading="lazy" allowtransparency="true" allow="encrypted-media" title=""></iframe>`
+        : btn.querySelector('.reel')!.outerHTML;
+      frame.hidden = false;
+      modal.showModal();
+    }),
+  );
+  const close = () => modal.close();
+  modal.querySelector('.works__modal-close')!.addEventListener('click', close);
+  modal.addEventListener('click', (e) => e.target === modal && close());
+  modal.addEventListener('close', () => (frame.innerHTML = ''));
+</script>

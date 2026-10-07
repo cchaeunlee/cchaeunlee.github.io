@@ -1,0 +1,90 @@
+---
+import { site } from '../config/site';
+import { t, type Lang } from '../i18n/ui';
+
+interface Props {
+  lang: Lang;
+}
+const { lang } = Astro.props;
+const s = t(lang);
+const links = ['about', 'works', 'brands', 'piano', 'contact'] as const;
+---
+
+<header class="header" id="top">
+  <div class="header__inner">
+    <a href={`/${lang}/`} class="header__logo">{site.name.en}</a>
+    <nav class="header__nav" aria-label="Main">
+      {links.map((k) => <a href={`#${k}`}>{s.nav[k]}</a>)}
+    </nav>
+    <div class="header__lang">
+      <a href="/ko/" aria-current={lang === 'ko' ? 'true' : undefined}>KO</a>
+      <span aria-hidden="true">/</span>
+      <a href="/en/" aria-current={lang === 'en' ? 'true' : undefined}>EN</a>
+    </div>
+  </div>
+</header>
+
+<style>
+  .header {
+    position: fixed;
+    inset: 0 0 auto 0;
+    z-index: 50;
+    height: var(--header-h);
+    color: var(--white);
+    transition: background 0.3s, backdrop-filter 0.3s;
+  }
+  .header.is-solid {
+    background: rgba(11, 11, 11, 0.86);
+    backdrop-filter: blur(10px);
+  }
+  .header__inner {
+    height: 100%;
+    display: flex;
+    align-items: center;
+    gap: 32px;
+    padding: 0 var(--gutter);
+  }
+  .header__logo {
+    font-family: var(--serif);
+    font-size: 22px;
+    letter-spacing: 0.02em;
+    margin-right: auto;
+  }
+  .header__nav {
+    display: flex;
+    gap: 28px;
+    font-size: 13px;
+    letter-spacing: 0.06em;
+  }
+  .header__nav a,
+  .header__lang a {
+    opacity: 0.7;
+    transition: opacity 0.2s;
+  }
+  .header__nav a:hover,
+  .header__lang a:hover,
+  .header__lang a[aria-current] {
+    opacity: 1;
+  }
+  .header__lang {
+    display: flex;
+    gap: 6px;
+    font-size: 12px;
+    letter-spacing: 0.1em;
+  }
+  .header__lang span {
+    opacity: 0.4;
+  }
+  @media (max-width: 767px) {
+    .header__nav {
+      display: none;
+    }
+  }
+</style>
+
+<script>
+  const header = document.querySelector('.header')!;
+  const onScroll = () => header.classList.toggle('is-solid', window.scrollY > 40);
+  window.addEventListener('scroll', onScroll, { passive: true });
+  onScroll();
+</script>

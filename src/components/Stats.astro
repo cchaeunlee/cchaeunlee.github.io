@@ -1,0 +1,92 @@
+---
+import { site } from '../config/site';
+import { works, uniqueBrands } from '../lib/works';
+import { t, type Lang } from '../i18n/ui';
+
+interface Props {
+  lang: Lang;
+}
+const { lang } = Astro.props;
+const s = t(lang);
+
+// 조회수는 "900만+" / "9M+" 처럼 단위를 붙여 카운트업합니다.
+const views =
+  lang === 'ko'
+    ? { value: site.totalViews / 10_000, suffix: '만+' }
+    : { value: site.totalViews / 1_000_000, suffix: 'M+' };
+
+const items = [
+  { ...views, label: s.stats.views },
+  { value: uniqueBrands('ko').length, suffix: '+', label: s.stats.brands },
+  { value: works.length, suffix: '+', label: s.stats.works },
+];
+---
+
+<section class="stats section--dark">
+  <div class="container stats__grid">
+    {
+      items.map((it) => (
+        <div class="stats__item reveal">
+          <p class="stats__num">
+            <span data-count={it.value}>{it.value}</span>
+            {it.suffix}
+          </p>
+          <p class="stats__label">{it.label}</p>
+        </div>
+      ))
+    }
+  </div>
+</section>
+
+<style>
+  .stats {
+    padding: clamp(56px, 8vw, 96px) 0;
+  }
+  .stats__grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 24px;
+  }
+  .stats__item {
+    border-left: 1px solid var(--gray-3);
+    padding-left: clamp(16px, 2vw, 28px);
+  }
+  .stats__num {
+    font-family: var(--serif);
+    font-size: clamp(40px, 7vw, 96px);
+    line-height: 1;
+    margin: 0 0 12px;
+  }
+  .stats__label {
+    font-size: 13px;
+    letter-spacing: 0.12em;
+    color: var(--gray-2);
+    margin: 0;
+  }
+  @media (max-width: 600px) {
+    .stats__grid {
+      grid-template-columns: 1fr;
+      gap: 36px;
+    }
+  }
+</style>
+
+<script>
+  const els = document.querySelectorAll<HTMLElement>('[data-count]');
+  const io = new IntersectionObserver((entries) => {
+    entries.forEach((e) => {
+      if (!e.isIntersecting) return;
+      const el = e.target as HTMLElement;
+      const target = Number(el.dataset.count);
+      const start = performance.now();
+      const tick = (now: number) => {
+        const p = Math.min((now - start) / 1600, 1);
+        el.textContent = String(Math.round(target * (1 - Math.pow(1 - p, 3))));
+        if (p < 1) requestAnimationFrame(tick);
+      };
+      requestAnimationFrame(tick);
+      io.unobserve(el);
+    });
+  });
+  if (!matchMedia('(prefers-reduced-motion: reduce)').matches) els.forEach((el) => io.observe(el));
+</script>

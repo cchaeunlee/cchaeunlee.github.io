@@ -1,0 +1,92 @@
+---
+import { site } from '../config/site';
+import { updatedAt } from '../lib/works';
+import { t, type Lang } from '../i18n/ui';
+
+interface Props {
+  lang: Lang;
+}
+const { lang } = Astro.props;
+const s = t(lang);
+const socials = [
+  { label: 'Instagram', href: site.instagram },
+  { label: 'YouTube', href: site.youtube },
+].filter((x) => x.href);
+const updated = new Date(updatedAt).toLocaleDateString(lang === 'ko' ? 'ko-KR' : 'en-US', {
+  year: 'numeric',
+  month: 'short',
+  day: 'numeric',
+});
+---
+
+<section class="section contact section--dark" id="contact">
+  <div class="container">
+    <p class="eyebrow">Contact</p>
+    <h2 class="section-title reveal">{s.contact.title}</h2>
+    <p class="contact__body reveal">{s.contact.body}</p>
+    <div class="contact__actions reveal">
+      {site.email && <a class="btn btn--solid" href={`mailto:${site.email}`}>{s.contact.email} →</a>}
+      {site.mediaKit && <a class="btn" href={site.mediaKit} download>{s.contact.mediaKit} ↓</a>}
+    </div>
+    {
+      socials.length > 0 && (
+        <ul class="contact__socials">
+          {socials.map((x) => (
+            <li>
+              <a href={x.href} target="_blank" rel="noopener">
+                {x.label} ↗
+              </a>
+            </li>
+          ))}
+        </ul>
+      )
+    }
+  </div>
+</section>
+
+<footer class="footer">
+  <div class="container footer__inner">
+    <span>© {new Date().getFullYear()} {site.name.en}</span>
+    <span>{s.footer.updated} · {updated}</span>
+  </div>
+</footer>
+
+<style>
+  .contact {
+    border-top: 1px solid var(--gray-3);
+  }
+  .contact__body {
+    max-width: 32em;
+    color: var(--gray-2);
+    font-size: 18px;
+    margin: -24px 0 40px;
+  }
+  .contact__actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 12px;
+  }
+  .contact__socials {
+    list-style: none;
+    padding: 0;
+    margin: 56px 0 0;
+    display: flex;
+    gap: 28px;
+    font-size: 14px;
+    letter-spacing: 0.08em;
+  }
+  .footer {
+    background: var(--black);
+    color: var(--gray-2);
+    font-size: 12px;
+    letter-spacing: 0.06em;
+  }
+  .footer__inner {
+    display: flex;
+    justify-content: space-between;
+    gap: 16px;
+    padding-top: 24px;
+    padding-bottom: 24px;
+    border-top: 1px solid var(--gray-3);
+  }
+</style>

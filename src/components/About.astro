@@ -1,0 +1,72 @@
+---
+import { t, type Lang } from '../i18n/ui';
+
+interface Props {
+  lang: Lang;
+}
+const { lang } = Astro.props;
+const s = t(lang).about;
+---
+
+<section class="section about" id="about">
+  <div class="container">
+    <p class="eyebrow">About</p>
+    <h2 class="section-title reveal">{s.title}</h2>
+    <div class="about__grid">
+      <article class="about__card about__card--dark reveal">
+        <span class="about__index">01</span>
+        <h3>{s.pianistTitle}</h3>
+        <p>{s.pianist}</p>
+      </article>
+      <article class="about__card reveal">
+        <span class="about__index">02</span>
+        <h3>{s.creatorTitle}</h3>
+        <p>{s.creator}</p>
+      </article>
+    </div>
+  </div>
+</section>
+
+<style>
+  .about__grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    border: 1px solid var(--black);
+  }
+  .about__card {
+    padding: clamp(32px, 5vw, 72px);
+    min-height: 360px;
+    display: flex;
+    flex-direction: column;
+  }
+  .about__card--dark {
+    background: var(--black);
+    color: var(--white);
+  }
+  .about__index {
+    font-size: 12px;
+    letter-spacing: 0.2em;
+    opacity: 0.5;
+  }
+  .about__card h3 {
+    font-family: var(--serif);
+    font-weight: 500;
+    font-style: italic;
+    font-size: clamp(36px, 4.5vw, 60px);
+    margin: auto 0 16px;
+    padding-top: 48px;
+  }
+  .about__card p {
+    margin: 0;
+    max-width: 30em;
+    opacity: 0.8;
+  }
+  @media (max-width: 767px) {
+    .about__grid {
+      grid-template-columns: 1fr;
+    }
+    .about__card {
+      min-height: 280px;
+    }
+  }
+</style>

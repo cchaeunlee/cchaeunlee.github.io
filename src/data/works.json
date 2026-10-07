@@ -1,0 +1,330 @@
+{
+  "source": "sample",
+  "updatedAt": "2026-10-07T16:06:02.100Z",
+  "items": [
+    {
+      "id": "sample-1",
+      "title": "APR (메디큐브)",
+      "titleEn": "APR (medicube)",
+      "date": "2026-06-01",
+      "url": null,
+      "format": "reels",
+      "categories": [
+        "beauty"
+      ],
+      "views": null,
+      "hero": false,
+      "thumbnail": null,
+      "preview": null,
+      "secondaryUse": false,
+      "description": null,
+      "descriptionEn": null
+    },
+    {
+      "id": "sample-2",
+      "title": "신세계인터내셔날 (저스트아즈아이엠)",
+      "titleEn": "Shinsegae International (JUST AS I AM)",
+      "date": "2026-06-12",
+      "url": null,
+      "format": "reels",
+      "categories": [
+        "fashion"
+      ],
+      "views": null,
+      "hero": false,
+      "thumbnail": null,
+      "preview": null,
+      "secondaryUse": false,
+      "description": null,
+      "descriptionEn": null
+    },
+    {
+      "id": "sample-3",
+      "title": "애경산업 (루나 / LUNA)",
+      "titleEn": "Aekyung (LUNA)",
+      "date": "2026-06-15",
+      "url": null,
+      "format": "reels",
+      "categories": [
+        "beauty"
+      ],
+      "views": null,
+      "hero": false,
+      "thumbnail": null,
+      "preview": null,
+      "secondaryUse": false,
+      "description": null,
+      "descriptionEn": null
+    },
+    {
+      "id": "sample-4",
+      "title": "APR (메디큐브)",
+      "titleEn": "APR (medicube)",
+      "date": "2026-06-19",
+      "url": null,
+      "format": "reels",
+      "categories": [
+        "beauty"
+      ],
+      "views": null,
+      "hero": false,
+      "thumbnail": null,
+      "preview": null,
+      "secondaryUse": false,
+      "description": null,
+      "descriptionEn": null
+    },
+    {
+      "id": "sample-5",
+      "title": "CJ올리브영 (웨이크메이크)",
+      "titleEn": "CJ Olive Young (WAKEMAKE)",
+      "date": "2026-07-03",
+      "url": null,
+      "format": "image",
+      "categories": [
+        "beauty"
+      ],
+      "views": null,
+      "hero": false,
+      "thumbnail": null,
+      "preview": null,
+      "secondaryUse": false,
+      "description": null,
+      "descriptionEn": null
+    },
+    {
+      "id": "sample-6",
+      "title": "정샘물뷰티 (정샘물)",
+      "titleEn": "JUNGSAEMMOOL Beauty",
+      "date": "2026-07-06",
+      "url": null,
+      "format": "image",
+      "categories": [
+        "beauty"
+      ],
+      "views": null,
+      "hero": false,
+      "thumbnail": null,
+      "preview": null,
+      "secondaryUse": false,
+      "description": null,
+      "descriptionEn": null
+    },
+    {
+      "id": "sample-7",
+      "title": "더툴랩 (THE TOOL LAB)",
+      "titleEn": "THE TOOL LAB",
+      "date": "2026-07-15",
+      "url": null,
+      "format": "reels",
+      "categories": [
+        "beauty"
+      ],
+      "views": null,
+      "hero": false,
+      "thumbnail": null,
+      "preview": null,
+      "secondaryUse": false,
+      "description": null,
+      "descriptionEn": null
+    },
+    {
+      "id": "sample-8",
+      "title": "한국정보통신과학기술 (로미고 이심)",
+      "titleEn": "Romigo eSIM",
+      "date": "2026-07-22",
+      "url": null,
+      "format": "reels",
+      "categories": [
+        "lifestyle"
+      ],
+      "views": null,
+      "hero": false,
+      "thumbnail": null,
+      "preview": null,
+      "secondaryUse": false,
+      "description": null,
+      "descriptionEn": null
+    },
+    {
+      "id": "sample-9",
+      "title": "스킨천사 (스킨1004)",
+      "titleEn": "SKIN1004",
+      "date": "2026-07-31",
+      "url": null,
+      "format": "reels",
+      "categories": [
+        "beauty"
+      ],
+      "views": null,
+      "hero": false,
+      "thumbnail": null,
+      "preview": null,
+      "secondaryUse": false,
+      "description": null,
+      "descriptionEn": null
+    },
+    {
+      "id": "sample-10",
+      "title": "비바이아 (VIVAIA)",
+      "titleEn": "VIVAIA",
+      "date": "2026-08-12",
+      "url": null,
+      "format": "reels",
+      "categories": [
+        "fashion"
+      ],
+      "views": null,
+      "hero": false,
+      "thumbnail": null,
+      "preview": null,
+      "secondaryUse": false,
+      "description": null,
+      "descriptionEn": null
+    },
+    {
+      "id": "sample-11",
+      "title": "APR (메디큐브)",
+      "titleEn": "APR (medicube)",
+      "date": "2026-08-24",
+      "url": null,
+      "format": "reels",
+      "categories": [
+        "beauty"
+      ],
+      "views": null,
+      "hero": false,
+      "thumbnail": null,
+      "preview": null,
+      "secondaryUse": false,
+      "description": null,
+      "descriptionEn": null
+    },
+    {
+      "id": "sample-12",
+      "title": "휴미 (huemi)",
+      "titleEn": "huemi",
+      "date": "2026-09-13",
+      "url": null,
+      "format": "reels",
+      "categories": [
+        "beauty"
+      ],
+      "views": null,
+      "hero": false,
+      "thumbnail": null,
+      "preview": null,
+      "secondaryUse": false,
+      "description": null,
+      "descriptionEn": null
+    },
+    {
+      "id": "sample-13",
+      "title": "휴미 (huemi)",
+      "titleEn": "huemi",
+      "date": "2026-09-20",
+      "url": null,
+      "format": "reels",
+      "categories": [
+        "beauty"
+      ],
+      "views": null,
+      "hero": false,
+      "thumbnail": null,
+      "preview": null,
+      "secondaryUse": false,
+      "description": null,
+      "descriptionEn": null
+    },
+    {
+      "id": "sample-14",
+      "title": "메노킨 (menokin)",
+      "titleEn": "menokin",
+      "date": "2026-09-25",
+      "url": null,
+      "format": "reels",
+      "categories": [
+        "beauty"
+      ],
+      "views": null,
+      "hero": false,
+      "thumbnail": null,
+      "preview": null,
+      "secondaryUse": false,
+      "description": null,
+      "descriptionEn": null
+    },
+    {
+      "id": "sample-15",
+      "title": "VT 코스메틱",
+      "titleEn": "VT Cosmetics",
+      "date": "2026-09-29",
+      "url": null,
+      "format": "reels",
+      "categories": [
+        "beauty"
+      ],
+      "views": null,
+      "hero": false,
+      "thumbnail": null,
+      "preview": null,
+      "secondaryUse": false,
+      "description": null,
+      "descriptionEn": null
+    },
+    {
+      "id": "sample-16",
+      "title": "더툴랩 (THE TOOL LAB)",
+      "titleEn": "THE TOOL LAB",
+      "date": "2026-10-02",
+      "url": null,
+      "format": "reels",
+      "categories": [
+        "beauty"
+      ],
+      "views": null,
+      "hero": false,
+      "thumbnail": null,
+      "preview": null,
+      "secondaryUse": false,
+      "description": null,
+      "descriptionEn": null
+    },
+    {
+      "id": "sample-17",
+      "title": "무신사 (Musinsa)",
+      "titleEn": "MUSINSA",
+      "date": "2026-10-03",
+      "url": null,
+      "format": "reels",
+      "categories": [
+        "fashion"
+      ],
+      "views": null,
+      "hero": false,
+      "thumbnail": null,
+      "preview": null,
+      "secondaryUse": false,
+      "description": null,
+      "descriptionEn": null
+    },
+    {
+      "id": "sample-18",
+      "title": "바세린 (Vaseline)",
+      "titleEn": "Vaseline",
+      "date": "2026-10-04",
+      "url": null,
+      "format": "reels",
+      "categories": [
+        "beauty"
+      ],
+      "views": null,
+      "hero": false,
+      "thumbnail": null,
+      "preview": null,
+      "secondaryUse": false,
+      "description": null,
+      "descriptionEn": null
+    }
+  ]
+}

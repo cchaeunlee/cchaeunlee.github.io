@@ -1,0 +1,142 @@
+:root {
+  --black: #0b0b0b;
+  --ink: #161616;
+  --white: #fafaf8;
+  --gray-1: #e8e8e5;
+  --gray-2: #9a9a96;
+  --gray-3: #4a4a48;
+  --serif: 'Cormorant Garamond', 'Noto Serif KR', serif;
+  --sans: 'Pretendard Variable', Pretendard, -apple-system, 'Segoe UI', sans-serif;
+  --gutter: clamp(16px, 4vw, 56px);
+  --max: 1280px;
+  --header-h: 64px;
+}
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+  scroll-padding-top: var(--header-h);
+}
+
+body {
+  margin: 0;
+  background: var(--white);
+  color: var(--ink);
+  font-family: var(--sans);
+  font-size: 16px;
+  line-height: 1.7;
+  word-break: keep-all;
+  -webkit-font-smoothing: antialiased;
+}
+
+img,
+video {
+  display: block;
+  max-width: 100%;
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+button {
+  font: inherit;
+  color: inherit;
+  background: none;
+  border: 0;
+  cursor: pointer;
+  padding: 0;
+}
+
+.container {
+  width: 100%;
+  max-width: var(--max);
+  margin: 0 auto;
+  padding: 0 var(--gutter);
+}
+
+.section {
+  padding: clamp(80px, 12vw, 160px) 0;
+}
+
+.section--dark {
+  background: var(--black);
+  color: var(--white);
+}
+
+.eyebrow {
+  font-size: 12px;
+  letter-spacing: 0.24em;
+  text-transform: uppercase;
+  color: var(--gray-2);
+  margin: 0 0 16px;
+}
+
+.section-title {
+  font-family: var(--serif);
+  font-weight: 500;
+  font-size: clamp(36px, 6vw, 72px);
+  line-height: 1.05;
+  letter-spacing: -0.01em;
+  margin: 0 0 clamp(32px, 5vw, 64px);
+}
+
+/* 피아노 건반 구분선 */
+.keys {
+  height: 28px;
+  background: url("data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%22140%22%20height%3D%2228%22%3E%3Crect%20width%3D%22140%22%20height%3D%2228%22%20fill%3D%22%23fafaf8%22%2F%3E%3Cg%20stroke%3D%22%239a9a96%22%3E%3Cpath%20d%3D%22M20%200v28M40%200v28M60%200v28M80%200v28M100%200v28M120%200v28M140%200v28%22%2F%3E%3C%2Fg%3E%3Cg%20fill%3D%22%230b0b0b%22%3E%3Crect%20x%3D%2213%22%20width%3D%2213%22%20height%3D%2217%22%2F%3E%3Crect%20x%3D%2234%22%20width%3D%2213%22%20height%3D%2217%22%2F%3E%3Crect%20x%3D%2273%22%20width%3D%2213%22%20height%3D%2217%22%2F%3E%3Crect%20x%3D%2293%22%20width%3D%2213%22%20height%3D%2217%22%2F%3E%3Crect%20x%3D%22113%22%20width%3D%2213%22%20height%3D%2217%22%2F%3E%3C%2Fg%3E%3C%2Fsvg%3E") repeat-x left top / auto 100%;
+}
+
+.btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  padding: 14px 28px;
+  border: 1px solid currentColor;
+  font-size: 14px;
+  letter-spacing: 0.08em;
+  transition: background 0.25s, color 0.25s;
+}
+.btn:hover {
+  background: var(--white);
+  color: var(--black);
+}
+.btn--solid {
+  background: var(--white);
+  color: var(--black);
+}
+.btn--solid:hover {
+  background: transparent;
+  color: var(--white);
+}
+
+.reveal {
+  opacity: 0;
+  transform: translateY(24px);
+  transition: opacity 0.9s ease, transform 0.9s ease;
+}
+.reveal.is-in {
+  opacity: 1;
+  transform: none;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+  .reveal {
+    opacity: 1;
+    transform: none;
+  }
+  *,
+  *::before,
+  *::after {
+    animation-play-state: paused !important;
+  }
+}

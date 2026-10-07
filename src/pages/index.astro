@@ -1,0 +1,19 @@
+---
+// 첫 접속 시 브라우저 언어에 따라 /ko/ 또는 /en/ 으로 이동
+---
+
+<!doctype html>
+<html lang="ko">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Chaeeun Lee · 이채은</title>
+    <script is:inline>
+      location.replace(/^ko\b/i.test(navigator.language) ? '/ko/' : '/en/');
+    </script>
+    <meta http-equiv="refresh" content="1; url=/ko/" />
+  </head>
+  <body style="background:#0b0b0b">
+    <p><a href="/ko/" style="color:#fafaf8">한국어</a> · <a href="/en/" style="color:#fafaf8">English</a></p>
+  </body>
+</html>
