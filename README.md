@@ -26,5 +26,6 @@ npm run dev      # http://localhost:4321/ko/
 - [x] 2단계: 디자인 시안 (블랙 & 화이트, 오른쪽 세로 릴스 흐름, 한/영)
 - [ ] 디자인 피드백 반영, 이메일·인스타그램·소개 문구 채우기
 - [ ] 3단계: 노션 연동 (`scripts/sync-notion.mjs` → `src/data/works.json`, 썸네일 다운로드)
-- [ ] 4단계: GitHub Actions 자동 배포 (6시간마다 + 수동 실행)
+- [x] 4단계 (기본): push 시 GitHub Pages 자동 배포 (`.github/workflows/deploy.yml`)
+- [ ] 4단계 (노션): 6시간마다 노션 동기화 후 배포
 - [ ] 전체 연주 영상 유튜브 업로드 후 `pianoYoutubeId` 입력
